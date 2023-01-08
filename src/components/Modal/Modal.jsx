@@ -1,17 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Modal.module.css';
 
 const Modal = ({ children, onClose }) => {
   const { overlay, modal } = styles;
 
+  const memoKeyClose = useCallback(handelKeyClose, [handelKeyClose]);
+
   useEffect(() => {
-    window.addEventListener('keydown', handelKeyClose);
+    window.addEventListener('keydown', memoKeyClose);
 
     return () => {
-      window.removeEventListener('keydown', handelKeyClose);
+      window.removeEventListener('keydown', memoKeyClose);
     };
-  }, []);
+  }, [memoKeyClose]);
 
   function handelKeyClose(evt) {
     if (evt.code === 'Escape') {

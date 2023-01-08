@@ -46,7 +46,7 @@ const ImageGallery = ({ searchQuery }) => {
           })
         );
 
-        setImages([...images, ...newImages]);
+        setImages(prevImages => [...prevImages, ...newImages]);
         setTotalHits(totalHits);
         setStatus(STATUS.RESOLVED);
       })
