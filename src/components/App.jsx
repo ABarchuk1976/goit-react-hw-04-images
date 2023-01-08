@@ -1,16 +1,23 @@
-export const App = () => {
+import { useState } from 'react';
+
+import styles from './App.module.css';
+import ImageGallery from './ImageGallery';
+import Searchbar from './Searchbar';
+
+// idle, resolved, reject
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const submitFormHandler = search => {
+    setSearchQuery(search.trim().toLowerCase());
+  };
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+    <div className={styles.App}>
+      <Searchbar onSubmit={submitFormHandler} />
+      {searchQuery && <ImageGallery searchQuery={searchQuery} />}
     </div>
   );
 };
+
+export default App;
